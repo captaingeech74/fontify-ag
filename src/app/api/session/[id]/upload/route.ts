@@ -1,7 +1,8 @@
 import { NextResponse } from 'next/server';
 import { updateSession, getSession } from '@/lib/session';
 
-export async function POST(request: Request, { params }: { params: { id: string } }) {
+export async function POST(request: Request, context: { params: Promise<{ id: string }> }) {
+  const params = await context.params;
   const session = getSession(params.id);
   if (!session) {
     return new NextResponse('Session not found', { status: 404 });

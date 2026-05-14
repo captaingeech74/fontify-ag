@@ -1,9 +1,10 @@
 "use client";
 
-import { useState, useRef, useEffect } from 'react';
+import React, { useState, useRef, useEffect } from 'react';
 import { Camera, CheckCircle, Loader2 } from 'lucide-react';
 
-export default function CapturePage({ params }: { params: { sessionId: string } }) {
+export default function CapturePage(props: { params: Promise<{ sessionId: string }> }) {
+  const params = React.use(props.params);
   const [photo, setPhoto] = useState<File | null>(null);
   const [uploading, setUploading] = useState(false);
   const [statusText, setStatusText] = useState('Align template within frame and capture');
